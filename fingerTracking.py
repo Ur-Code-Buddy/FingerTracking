@@ -11,8 +11,8 @@ webcam = cv2.VideoCapture(0)
 webcam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 webcam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
-with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7, min_tracking_confidence=0.6) as hands:
-    while webcam.isOpened():á
+with mp_hands.Hands(max_num_hands = 2, min_detection_confidence=0.7, min_tracking_confidence=0.6) as hands:
+    while webcam.isOpened():
         success, img = webcam.read()
 
         if not success:
@@ -23,7 +23,8 @@ with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7, min_tracking_
 
         results = hands.process(img)
 
-        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
